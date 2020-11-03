@@ -1,0 +1,66 @@
+---
+title: "Quiz2"
+author: "Roberto"
+date: "2/13/2020"
+output:
+  html_document: default
+  word_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r echo = FALSE, results = 'asis'}
+library(kableExtra)
+x = c(22,26,27,33,29,29,34,30,40)
+y = c(497,541,556,576,578,607,662,739,805)
+df = data.frame(x,y)
+kable(df) %>%
+  kable_styling(full_width = F, position = 'float_left', font_size = 7)
+```
+**a.**
+**Look at a scatterplot of the data. Does it appear that a simple linear model is appropriate?** 
+
+Yes.
+
+We can also check the correlation, to check if the two variables are linearly associated.
+
+Cor: 
+```{r echo = FALSE}
+cor(x,y)
+```
+
+```{r echo=FALSE, fig.width = 4, fig.height=4}
+q1  = plot(x,y, xlab = ' x', ylab = 'y', pch = 19) 
+abline(lm(y~x), col = 'red')
+```
+
+
+    **b.**
+    **Which variable, X or Y, is the "response" variable        in this problem? Which is the "explanatory" or            "predictor"    variable?**
+ 
+ 
+    The response variable is the dependent variable, which     is  *Y* in this problem. *X* is the predictor variable     or explanatory variable. *X* is the independent           variable.
+ 
+    **c.**
+    **What is the equation of the regression line? (Round       the slope and y-intercept to one decimal place.)**
+ 
+    The estimated regression line equation is:
+    ***y = 141.08 + 15.89x***
+
+```{r echo = FALSE, fig.width=5, fig.height=3}
+model = lm(formula = y ~ x)
+model
+summary(model)
+```
+ 
+
+    **d.**
+    **Use the regression line to predict the value of Y         when   X = 31.**
+
+```{r echo = FALSE }
+Y = 141.08 + 15.89 * (31)
+Y
+```
+

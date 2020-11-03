@@ -1,0 +1,191 @@
+---
+title: "Exam 2"
+author: "Roberto"
+date: "4/8/2020"
+output:
+  word_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r echo=FALSE, include=FALSE}
+library(car)
+library(dplyr)
+library(readxl)
+H <- read_excel("/Users/robertocampos/Desktop/Main_Folder/CSUS_classes/stat103/HARRIS.xlsx")
+```
+
+
+1. The file HARRIS shows the values of the following variables for 93 employees of Harris Bank Chicago in 1977:\
+  •Salary= Annual beginning (or starting) salary,in dollars\ 
+  •Educate= Years of schooling at the time of hire\
+  •Exper= Number of months of previous work experienceat time     of hire\
+  •Months= Number of months after January 1, 1969, that the       individual was hired \
+Construct an initial regression model for the starting salaries of employees of Harris Bank Chicago \
+using only the variables above. Base all of your responses below on the initial model only! \
+
+ <font size="3">a. Write down the regression equation for the initial model.</font>\
+
+**Salary = 3179.74 + 139.618 * Educate + 1.481 * Exper + 20.633 * Months**
+
+ <font size="3">b. Test the overall utility of the model. Explain.</font>\
+
+The p-value is actually very low meaning that we can assume there is a linear relationship between the dependent variable and independent variables. 
+
+The F-statistic is greater than 1, this can help us assume that we can reject the null hypothesis. 
+
+```{r echo = FALSE}
+i.model = lm(H$Salary ~ H$Educate + H$Exper + H$Months, data = H)
+summary(i.model)
+```
+
+ <font size="3">c. Are the required conditions satisfied? You do not need to discuss outliers or influential points.\n
+(Briefly summarize your conclusions and provide relevant output for support.)</font>
+
+We can see that there is constant spread in variables Months and Exper, they are centered on 0 throught the range of fitted values. Educate seems to have constant sprean on  education levels higher than 12 but less spread on education levels that are lower. Althought there is some outliers, from looking at the residual plots we can assume that the resiuals are normally distributed satisfying the assumption.\n
+
+
+```{r echo=FALSE}
+inital_model_residuals = resid(i.model)
+plot(H$Educate, inital_model_residuals)
+abline(0, 0)
+```
+
+```{r echo=FALSE, include=TRUE}
+plot(H$Exper, inital_model_residuals)
+abline(0, 0)
+```
+```{r echo=FALSE, include=TRUE}
+plot(H$Months, inital_model_residuals)
+abline(0, 0)
+```
+\n
+
+
+<font size="3"> d. Interpret the slopes of each of the independent variables carefully and using the appropriate units. </font>
+
+**Salary = 3179.74 + 139.618 * Educate + 1.481 * Exper + 20.633 * Months**
+
+The mean salary increases about $139.6 for each year of education. (fixed exper and # on months)
+
+For each additional month of experience the mean salary will increase by about $1.48. (fixed educ and # of months)
+
+For each additional month  the mean salary will increase $20.6 per month (fixed educ and exper)\
+
+
+
+<font size="3"> e. Is there evidence, at the 5% level of significance, for a difference in salaries, on average, for male and female employees at the bank? Explain.</font>
+
+Yes, The p - value for Male shows that there is significance. 
+```{r echo = FALSE, include = TRUE}
+model1 = lm(H$Salary ~ H$Educate + H$Exper + H$Months + H$Male)
+summary(model1)
+```
+
+<font size="3">f. Interpret the coefficient for the dummy variable Male.</font>
+
+
+The mean salary with the same education, experience, and  months is $722.46 more for males.
+
+<font size="3">g. Predict, with 95% confidence, the mean starting salary for male employees with 12 years of education, 10 years (i.e.,120 months) of experience, and Months = 36 (i.e., hired in January of 1972). Do the same for females with 12 years of education, 10 years of experience, and Months = 36. Does this support your conclusion in part (d)? Explain.</font>
+
+Yes, the predicted salaries given the constraints give different salaries.
+The salary for male was $6324
+The salary for female was $5601
+
+```{r echo = FALSE, include=TRUE}
+x = H$Salary
+a = H$Educate
+b = H$Exper 
+c = H$Months
+d = H$Male
+model.1 = lm(x ~ a+ b + c + d)
+
+male_pred <- predict(model.1, data.frame(a = 12, b = 120, c = 36, d = 1), interval = "predict", level = .95)
+female_pred <- predict(model.1, data.frame(a = 12, b = 120, c = 36, d = 0), interval = "predict", level = .95)
+print('Male')
+male_pred
+print('Female')
+female_pred
+```
+
+<font size="3">h. Come up with the best model of starting salary, based on the variables in the dataset, that you think you can justify, and justify your choice.</font>
+
+Looking at the summary, model with degree 5 has a better Adjusted R squared.
+The Residual Standard Error is also lower. 
+Running an AIC test shows that our model with degree 5 is better, than our initial model.
+
+```{r echo = FALSE, include=TRUE}
+x = H$Salary
+a = H$Educate
+b = H$Exper 
+c = H$Months
+d = H$Male
+model_degree5 = lm(x ~ poly(a,5,raw = TRUE) + poly(b, 5, raw = TRUE) + poly(c, 5, raw = TRUE) + poly(d, 5, raw =TRUE))
+
+summary(model_degree5)
+AIC(model1, model_degree5)
+
+```
+
+
+2. As part of a multiple regression model for personal income, a survey is administered to randomly selected individuals. As well as several quantitative variables, a qualitative variable for education (the highest degree earned) is included in the survey and coded as follows:  1 = less than a high school degree,2 = high school degree,3 = bachelors degree,4 = masters degree and  5 = doctorateor above. 
+
+<font size="3">a. How many dummy variables must be coded for the education variable?</font>
+
+4 dummy variables must be encoded.
+
+<font size="3">b. Describe (define) dummy variables that you would create to represent the education variable in a regression model. Give them names and describe the way you would code them for use in the model. </font>
+
+Dummy variables are used to turn categorical data into numeric values.
+There would be 4 columns, if the highest degree earned was for example a bachelors degree, there would be a 1 in that column and 0 in the other 3 columns (less-hs,hs, masters). 
+
+<font size="3">
+c. Can all of the dummy variables equal 1 simultaneously for a person included in the survey? If so, what is the interpretation?
+</font>
+
+No, only for the highest degree earned. All others will have 0.
+
+<font size="3">
+d. 	Can all of the dummy variables equal 0 simultaneously for a person included in the survey? If so, what is the interpretation?
+</font>
+
+Yes, the column that is left out would be the column test against.
+
+
+3. Suppose you have built a multiple regression model to predict house prices in a community that uses three variables: house size, distance from downtown, and typical commute time as independent variables. You then randomly selected 50 homes in the community and determined the values for each variable for every house in your sample. For this model, provide the correct degrees of freedom for the following sums of squares as they would appear in the Statgraphics output. (Bespecific, I want numbers, not formulas!)
+
+
+
+<font size="3">
+a. sst:        df= n - 1 = 49
+</font>
+
+<font size="3">
+b. sse:        df= n - k -1 = 46
+</font>
+
+<font size="3">
+c. ssr:        df= k = 3
+</font>
+
+
+<font size="3">
+d. State in symbolic form the hypotheses for the test of the model.
+</font>\
+salary = b1 * housesize + b2 * distanceFromTOwn + b3 * typicalCommute\
+H0: b1=b2=b3=0\
+H(alternative):  b1 != 0 or b2 !=0 or b3 != 0 'atleast one of the coefficients is not equal to 0'\
+
+
+<font size="3">
+e. What is the test statistic associated with the hypothesis test described in part (b)? Write out the equation for this test statistic.
+</font>
+
+F = MSR/MSE = (SSR/k)/(SSE/(n-k-1))
+
+4.
+
