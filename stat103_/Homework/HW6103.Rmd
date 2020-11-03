@@ -1,0 +1,174 @@
+---
+title: "HW6"
+author: "Roberto"
+date: "3/20/2020"
+output:
+  word_document: default
+  pdf_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(readxl)
+VACATION <- read_excel("/Users/robertocampos/Desktop/Main_Folder/CSUS_classes/stat103/VACATION.xlsx")
+
+amus <- read_excel("/Users/robertocampos/Desktop/Main_Folder/CSUS_classes/stat103/AMUSEMENT.xlsx")
+
+cata =  read_excel('/Users/robertocampos/Desktop/Main_Folder/CSUS_classes/stat103/CATALOG.xlsx')
+
+```
+
+1.	A developer of vacation homes is considering purchasing a tract of land near a lake. From previous experience, she knows that the price of a lot is affected by the lot size, number of mature trees, and distance to the lake. From a nearby area, she gathers data on 60 recently sold lots. These data are stored in the file VACATION. Use the data to construct a regression model to predict the value of a lot.
+
+a.  Do the model assumptions appear to be satisfied? If not, which ones are violated?
+      
+      -model: price = 51.39 + .699 * lot size + .6788 * Trees - .378 * Distance
+      
+      -The P Value is .0013 which means that it supports the assumption there is a linear relation for the variables mentioned above, but looking at the summary we can see that the independent variable 'lot size' could be removed. 
+      
+      
+b.   What is R2? What does it tell you?
+
+      -R^2 in this model is .2425 which means that atleast .25 of the observed prices are explained by the model. 0% indicates that the model explains none of the variability of the response data around its mean, we want a higher R^2, because it would typically indicate that the model fit's our data better. 
+      
+c.   Which of the explanatory variables is linearly related to the response variable in this (the original)model?
+
+
+      -If we take a look at the summary, the independent variable Trees is the only variable that is linearly related to our dependent variable. 
+      
+d.   If necessary, create a new model by removing insignificant variables.
+    
+    
+    -After removing the independent variable, we get the following model: Price = 75.5248 + .7671 * Trees .4327 * Distance. The model gives a better P Value at .0008 and both independent variables being Trees and Distance are linearly related with the dependent variable at a significance level.
+     
+e.   Interpret the slopes in the new model.
+
+    -Each tree will add about .767 or 767 dollars to the average price and each unit of distance (feet) for the lake the average price will decrease by .432 or 432 dollars.
+    
+f.    Predict with 95% confidence the selling price of a 40,000-square foot lot with 50 mature trees that is located 75 feet from the lake.
+
+    -  With 95% confidence the lot can sell up to 157k
+
+g. Estimate with 95% confidence the average selling price of all such lots.
+
+    - With 95% confidence the mean price of such lots are 62K to 89k
+  
+```{r}
+model = lm(formula = VACATION$Price~VACATION$`Lot size`+VACATION$Trees+VACATION$Distance, data = VACATION)
+
+model2 = lm(formula = VACATION$Price~VACATION$Trees+VACATION$Distance, data = VACATION)
+
+summary(model)
+
+summary(model2)
+```
+
+2.	The manager of an amusement park would like to be able to predict daily attendance. After some consideration, he decided that the following three factors are critical, yesterday’s attendance, whether it’s a weekday or weekend, and the predicted weather. He then took a random sample of 40 days and recorded the data in the file AMUSEMENT. Since two of the variables are qualitative, he created the following sets if dummy variables:
+
+
+a. 	Construct a regression model to predict attendance. Is the model likely to be useful? Include all relevant computer output, organized so that I can follow it.
+
+    -The model P Value is 5.841e-11 which means that it supports the assumption that the model is useful. Although the independent variable rain does not seem to have linear relationship with the dependent variable Attendance as we can see in the output summary.
+    
+b. 	Can we conclude that weather is a factor in determining attendance?
+  
+    -We cannot conclude but we can approximate that weather gives a good indication of attendance. The independent variable Rain had a bigger P Value than expected but Sunny had a good P Value which means there is a linear relationship and we can use it to predict attendance. 
+  
+c. 	Determine the best model using the Akaike Information Criterion (AIC) and Mallow’s Cp statistics. How does this affect your choice of final model? Does it change your answer to part (b)?
+
+    -According to AIC, I should choose my first model: amus_model using the three independent variables.
+
+    -According to Mallows cp, we should choose the first model: amus_model using the three independent            variables. 
+
+    -AIC and Mallows test should be the about the same.
+
+d.   Does this data provide sufficient evidence that weekend attendance is, on average, larger than weekday attendance? Support your answer.
+
+    -Yes, since the independent variable weekend is significant we can assume that on average there is a larger weekend attendance. Significant meaning there is a linear relationship between the dependent variable Attendance and the independent variable weekend. 
+
+```{r}
+amus_model = lm(amus$Attendance ~ amus$Yesterday + amus$Weekend + amus$Sunny + amus$Rain)
+summary(amus_model)
+```
+
+```{r}
+amus_model2 = lm(amus$Attendance ~ amus$Yesterday + amus$Weekend + amus$Sunny)
+summary(amus_model2)
+```
+
+*AIC
+```{r}
+AIC(amus_model, amus_model2)
+```
+```{r, include = FALSE}
+library(olsrr)
+```
+
+*Marllows Cp
+```{r, echo=FALSE}
+print("Model 1 vs model 2")
+ols_mallows_cp(amus_model, amus_model2) 
+
+print("Model 2 vs model 1")
+ols_mallows_cp(amus_model2, amus_model)
+
+```
+
+3.The general manager of a chain of catalog stores wanted to determine the factors that affect how long it takes to unload a truck delivering orders. A random sample of 50 deliveries to a store was observed. The times (in minutes) to unload the truck, the total number of boxes, and the total weight (in hundreds of pounds) were recorded in the file CATALOG.
+
+
+a.   Determine the multiple regression equation.
+
+    - Time =  -28.427 + .604 * boxes + .374 * weight
+
+b.   How well does the model fit the data?
+
+    _ According to the R^2 adjusted the model fits well. It means that .80 of the time, the dependent variable is explained by the independent variables. 
+
+
+c.   Perform diagnostics on the model and report your findings.
+
+    - The P Value of the model according to the summary is 2.2e-16 which means that there is a linear relationship between the dependent and independent variables. Both the independent variables seem to have a liner relationship and are significant to the model in this case. We can keep both of then in this case. 
+    
+d.   Is multicollinearity a problem? If so, propose a solution.
+    
+    -There seem's to be no multicollinearity. We can do a check by using a Variance Inflation Factor test. The test showed that there is no multicollinearity. It say's that the is no correlation between one predictor and the other predictor variables and that the varience was not inflated. 
+    
+e.   Construct a regression model that includes the information for the time of day.
+
+    - Time = -41.4221 + .644 * boxes + .3494 * weight + 4.54 * codes
+
+f.    Does the time of day affect the unloading time? Explain.
+
+    - Yes, the time of day seems to affect the loading time. It's there is a linear relationship between the independet variable time of day (which is encoded 1, 2 or 3). It appears that in the morning and late afternoon it takes less time. 
+    
+```{r}
+cata_model = lm(cata$Time ~ cata$Boxes + cata$Weight, data = cata)
+summary(cata_model)
+```
+```{r,include=FALSE}
+library(regclass)
+```
+
+```{r , echo=FALSE}
+print("variance inflation factor")
+VIF(cata_model)
+```
+```{r,echo=FALSE}
+one <- subset(cata, Codes == '1')
+two <- subset(cata, Codes == '2')
+three <- subset(cata, Codes == '3')
+
+print("Average time it takes to unload in the morning")
+mean(one$Time)
+print("Average time it takes to unload in the early after")
+mean(two$Time)
+print("Average time it takes to unload in the late after")
+mean(three$Time)
+
+```
+

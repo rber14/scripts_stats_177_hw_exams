@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<statgraphics_data>
+  <FORMAT>
+    <DECIMALSYMBOL>.</DECIMALSYMBOL>
+    <DATESEPARATOR>/</DATESEPARATOR>
+    <DATEORDER>MDY</DATEORDER>
+  </FORMAT>
+  <COLUMNS>
+    <C1 Name="Load" Comment="" Type="N" Width="13"/>
+    <C2 Name="Specimens" Comment="" Type="N" Width="13"/>
+    <C3 Name="Failures" Comment="" Type="N" Width="13"/>
+  </COLUMNS>
+  <ROW>
+    <C1>5</C1>
+    <C2>600</C2>
+    <C3>13</C3>
+  </ROW>
+  <ROW>
+    <C1>35</C1>
+    <C2>500</C2>
+    <C3>95</C3>
+  </ROW>
+  <ROW>
+    <C1>70</C1>
+    <C2>600</C2>
+    <C3>189</C3>
+  </ROW>
+  <ROW>
+    <C1>80</C1>
+    <C2>300</C2>
+    <C3>95</C3>
+  </ROW>
+  <ROW>
+    <C1>90</C1>
+    <C2>300</C2>
+    <C3>130</C3>
+  </ROW>
+</statgraphics_data>

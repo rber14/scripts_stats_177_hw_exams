@@ -1,0 +1,565 @@
+\PassOptionsToPackage{unicode=true}{hyperref} % options for packages loaded elsewhere
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provides euro and other symbols
+\else % if luatex or xelatex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage[]{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\IfFileExists{parskip.sty}{%
+\usepackage{parskip}
+}{% else
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+}
+\usepackage{hyperref}
+\hypersetup{
+            pdftitle={HW6},
+            pdfauthor={Roberto},
+            pdfborder={0 0 0},
+            breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{0}
+% Redefines (sub)paragraphs to behave more like sections
+\ifx\paragraph\undefined\else
+\let\oldparagraph\paragraph
+\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+\let\oldsubparagraph\subparagraph
+\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+% set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+
+
+\title{HW6}
+\author{Roberto}
+\date{3/20/2020}
+
+\begin{document}
+\maketitle
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(readxl)}
+\NormalTok{VACATION <-}\StringTok{ }\KeywordTok{read_excel}\NormalTok{(}\StringTok{"/Users/robertocampos/Desktop/Main_Folder/CSUS_classes/stat103/VACATION.xlsx"}\NormalTok{)}
+
+\NormalTok{amus <-}\StringTok{ }\KeywordTok{read_excel}\NormalTok{(}\StringTok{"/Users/robertocampos/Desktop/Main_Folder/CSUS_classes/stat103/AMUSEMENT.xlsx"}\NormalTok{)}
+
+\NormalTok{cata =}\StringTok{  }\KeywordTok{read_excel}\NormalTok{(}\StringTok{'/Users/robertocampos/Desktop/Main_Folder/CSUS_classes/stat103/CATALOG.xlsx'}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  A developer of vacation homes is considering purchasing a tract of
+  land near a lake. From previous experience, she knows that the price
+  of a lot is affected by the lot size, number of mature trees, and
+  distance to the lake. From a nearby area, she gathers data on 60
+  recently sold lots. These data are stored in the file VACATION. Use
+  the data to construct a regression model to predict the value of a
+  lot.
+\end{enumerate}
+
+\begin{enumerate}
+\def\labelenumi{\alph{enumi}.}
+\item
+  Do the model assumptions appear to be satisfied? If not, which ones
+  are violated?
+
+  -model: price = 51.39 + .699 * lot size + .6788 * Trees - .378 *
+  Distance
+
+  -The P Value is .0013 which means that it supports the assumption
+  there is a linear relation for the variables mentioned above, but
+  looking at the summary we can see that the independent variable `lot
+  size' could be removed.
+\item
+  What is R2? What does it tell you?
+
+  -R\^{}2 in this model is .2425 which means that atleast .25 of the
+  observed prices are explained by the model. 0\% indicates that the
+  model explains none of the variability of the response data around its
+  mean, we want a higher R\^{}2, because it would typically indicate
+  that the model fit's our data better.
+\item
+  Which of the explanatory variables is linearly related to the response
+  variable in this (the original)model?
+
+  -If we take a look at the summary, the independent variable Trees is
+  the only variable that is linearly related to our dependent variable.
+\item
+  If necessary, create a new model by removing insignificant variables.
+\end{enumerate}
+
+\begin{verbatim}
+-After removing the independent variable, we get the following model: Price = 75.5248 + .7671 * Trees .4327 * Distance. The model gives a better P Value at .0008 and both independent variables being Trees and Distance are linearly related with the dependent variable at a significance level.
+ 
+\end{verbatim}
+
+\begin{enumerate}
+\def\labelenumi{\alph{enumi}.}
+\setcounter{enumi}{4}
+\tightlist
+\item
+  Interpret the slopes in the new model.
+\end{enumerate}
+
+\begin{verbatim}
+-Each tree will add about .767 or 767 dollars to the average price and each unit of distance (feet) for the lake the average price will decrease by .432 or 432 dollars.
+\end{verbatim}
+
+\begin{enumerate}
+\def\labelenumi{\alph{enumi}.}
+\setcounter{enumi}{5}
+\tightlist
+\item
+  Predict with 95\% confidence the selling price of a 40,000-square foot
+  lot with 50 mature trees that is located 75 feet from the lake.
+\end{enumerate}
+
+\begin{verbatim}
+-  With 95% confidence the lot can sell up to 157k
+\end{verbatim}
+
+\begin{enumerate}
+\def\labelenumi{\alph{enumi}.}
+\setcounter{enumi}{6}
+\item
+  Estimate with 95\% confidence the average selling price of all such
+  lots.
+
+  \begin{itemize}
+  \tightlist
+  \item
+    With 95\% confidence the mean price of such lots are 62K to 89k
+  \end{itemize}
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{model =}\StringTok{ }\KeywordTok{lm}\NormalTok{(}\DataTypeTok{formula =}\NormalTok{ VACATION}\OperatorTok{$}\NormalTok{Price}\OperatorTok{~}\NormalTok{VACATION}\OperatorTok{$}\StringTok{`}\DataTypeTok{Lot size}\StringTok{`}\OperatorTok{+}\NormalTok{VACATION}\OperatorTok{$}\NormalTok{Trees}\OperatorTok{+}\NormalTok{VACATION}\OperatorTok{$}\NormalTok{Distance, }\DataTypeTok{data =}\NormalTok{ VACATION)}
+
+\NormalTok{model2 =}\StringTok{ }\KeywordTok{lm}\NormalTok{(}\DataTypeTok{formula =}\NormalTok{ VACATION}\OperatorTok{$}\NormalTok{Price}\OperatorTok{~}\NormalTok{VACATION}\OperatorTok{$}\NormalTok{Trees}\OperatorTok{+}\NormalTok{VACATION}\OperatorTok{$}\NormalTok{Distance, }\DataTypeTok{data =}\NormalTok{ VACATION)}
+
+\KeywordTok{summary}\NormalTok{(model)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = VACATION$Price ~ VACATION$`Lot size` + VACATION$Trees + 
+##     VACATION$Distance, data = VACATION)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -66.702 -35.272   0.365  28.854  84.966 
+## 
+## Coefficients:
+##                     Estimate Std. Error t value Pr(>|t|)   
+## (Intercept)          51.3912    23.5165   2.185   0.0331 * 
+## VACATION$`Lot size`   0.6999     0.5589   1.252   0.2156   
+## VACATION$Trees        0.6788     0.2293   2.960   0.0045 **
+## VACATION$Distance    -0.3784     0.1952  -1.938   0.0577 . 
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 40.24 on 56 degrees of freedom
+## Multiple R-squared:  0.2425, Adjusted R-squared:  0.2019 
+## F-statistic: 5.975 on 3 and 56 DF,  p-value: 0.001315
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{summary}\NormalTok{(model2)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = VACATION$Price ~ VACATION$Trees + VACATION$Distance, 
+##     data = VACATION)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -73.600 -33.159  -4.829  33.828  97.281 
+## 
+## Coefficients:
+##                   Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)        75.5248    13.5464   5.575 7.06e-07 ***
+## VACATION$Trees      0.7671     0.2193   3.498 0.000917 ***
+## VACATION$Distance  -0.4327     0.1913  -2.262 0.027549 *  
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 40.44 on 57 degrees of freedom
+## Multiple R-squared:  0.2213, Adjusted R-squared:  0.1939 
+## F-statistic: 8.097 on 2 and 57 DF,  p-value: 0.0008031
+\end{verbatim}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  The manager of an amusement park would like to be able to predict
+  daily attendance. After some consideration, he decided that the
+  following three factors are critical, yesterday's attendance, whether
+  it's a weekday or weekend, and the predicted weather. He then took a
+  random sample of 40 days and recorded the data in the file AMUSEMENT.
+  Since two of the variables are qualitative, he created the following
+  sets if dummy variables:
+\end{enumerate}
+
+\begin{enumerate}
+\def\labelenumi{\alph{enumi}.}
+\item
+  Construct a regression model to predict attendance. Is the model
+  likely to be useful? Include all relevant computer output, organized
+  so that I can follow it.
+
+  -The model P Value is 5.841e-11 which means that it supports the
+  assumption that the model is useful. Although the independent variable
+  rain does not seem to have linear relationship with the dependent
+  variable Attendance as we can see in the output summary.
+\item
+  Can we conclude that weather is a factor in determining attendance?
+
+  -We cannot conclude but we can approximate that weather gives a good
+  indication of attendance. The independent variable Rain had a bigger P
+  Value than expected but Sunny had a good P Value which means there is
+  a linear relationship and we can use it to predict attendance.
+\item
+  Determine the best model using the Akaike Information Criterion (AIC)
+  and Mallow's Cp statistics. How does this affect your choice of final
+  model? Does it change your answer to part (b)?
+
+  -According to AIC, I should choose my first model: amus\_model using
+  the three independent variables.
+
+  -According to Mallows cp, we should choose the first model:
+  amus\_model using the three independent variables.
+
+  -AIC and Mallows test should be the about the same.
+\item
+  Does this data provide sufficient evidence that weekend attendance is,
+  on average, larger than weekday attendance? Support your answer.
+\end{enumerate}
+
+\begin{verbatim}
+-Yes, since the independent variable weekend is significant we can assume that on average there is a larger weekend attendance. Significant meaning there is a linear relationship between the dependent variable Attendance and the independent variable weekend. 
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{amus_model =}\StringTok{ }\KeywordTok{lm}\NormalTok{(amus}\OperatorTok{$}\NormalTok{Attendance }\OperatorTok{~}\StringTok{ }\NormalTok{amus}\OperatorTok{$}\NormalTok{Yesterday }\OperatorTok{+}\StringTok{ }\NormalTok{amus}\OperatorTok{$}\NormalTok{Weekend }\OperatorTok{+}\StringTok{ }\NormalTok{amus}\OperatorTok{$}\NormalTok{Sunny }\OperatorTok{+}\StringTok{ }\NormalTok{amus}\OperatorTok{$}\NormalTok{Rain)}
+\KeywordTok{summary}\NormalTok{(amus_model)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = amus$Attendance ~ amus$Yesterday + amus$Weekend + 
+##     amus$Sunny + amus$Rain)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -1181.11  -494.98    41.44   487.71  1725.30 
+## 
+## Coefficients:
+##                  Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)    4514.44912  570.67150   7.911 2.66e-09 ***
+## amus$Yesterday    0.20612    0.08472   2.433  0.02023 *  
+## amus$Weekend    933.90177  311.61848   2.997  0.00499 ** 
+## amus$Sunny     1074.83737  322.76468   3.330  0.00205 ** 
+## amus$Rain      -727.09560  365.57648  -1.989  0.05457 .  
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 699.6 on 35 degrees of freedom
+## Multiple R-squared:  0.7768, Adjusted R-squared:  0.7513 
+## F-statistic: 30.45 on 4 and 35 DF,  p-value: 5.841e-11
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{amus_model2 =}\StringTok{ }\KeywordTok{lm}\NormalTok{(amus}\OperatorTok{$}\NormalTok{Attendance }\OperatorTok{~}\StringTok{ }\NormalTok{amus}\OperatorTok{$}\NormalTok{Yesterday }\OperatorTok{+}\StringTok{ }\NormalTok{amus}\OperatorTok{$}\NormalTok{Weekend }\OperatorTok{+}\StringTok{ }\NormalTok{amus}\OperatorTok{$}\NormalTok{Sunny)}
+\KeywordTok{summary}\NormalTok{(amus_model2)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = amus$Attendance ~ amus$Yesterday + amus$Weekend + 
+##     amus$Sunny)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -1268.0  -389.3   186.8   338.6  2021.2 
+## 
+## Coefficients:
+##                 Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)    3.731e+03  4.296e+02   8.686 2.33e-10 ***
+## amus$Yesterday 2.953e-01  7.479e-02   3.948 0.000351 ***
+## amus$Weekend   9.771e+02  3.234e+02   3.022 0.004609 ** 
+## amus$Sunny     1.234e+03  3.253e+02   3.794 0.000547 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 727.7 on 36 degrees of freedom
+## Multiple R-squared:  0.7516, Adjusted R-squared:  0.7309 
+## F-statistic:  36.3 on 3 and 36 DF,  p-value: 5.551e-11
+\end{verbatim}
+
+*AIC
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{AIC}\NormalTok{(amus_model, amus_model2)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##             df      AIC
+## amus_model   6 644.2090
+## amus_model2  5 646.4921
+\end{verbatim}
+
+*Marllows Cp
+
+\begin{verbatim}
+## [1] "Model 1 vs model 2"
+\end{verbatim}
+
+\begin{verbatim}
+## [1] 2.344408
+\end{verbatim}
+
+\begin{verbatim}
+## [1] "Model 2 vs model 1"
+\end{verbatim}
+
+\begin{verbatim}
+## [1] 6.955729
+\end{verbatim}
+
+3.The general manager of a chain of catalog stores wanted to determine
+the factors that affect how long it takes to unload a truck delivering
+orders. A random sample of 50 deliveries to a store was observed. The
+times (in minutes) to unload the truck, the total number of boxes, and
+the total weight (in hundreds of pounds) were recorded in the file
+CATALOG.
+
+\begin{enumerate}
+\def\labelenumi{\alph{enumi}.}
+\tightlist
+\item
+  Determine the multiple regression equation.
+\end{enumerate}
+
+\begin{verbatim}
+- Time =  -28.427 + .604 * boxes + .374 * weight
+\end{verbatim}
+
+\begin{enumerate}
+\def\labelenumi{\alph{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  How well does the model fit the data?
+\end{enumerate}
+
+\begin{verbatim}
+_ According to the R^2 adjusted the model fits well. It means that .80 of the time, the dependent variable is explained by the independent variables. 
+\end{verbatim}
+
+\begin{enumerate}
+\def\labelenumi{\alph{enumi}.}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  Perform diagnostics on the model and report your findings.
+\end{enumerate}
+
+\begin{verbatim}
+- The P Value of the model according to the summary is 2.2e-16 which means that there is a linear relationship between the dependent and independent variables. Both the independent variables seem to have a liner relationship and are significant to the model in this case. We can keep both of then in this case. 
+\end{verbatim}
+
+\begin{enumerate}
+\def\labelenumi{\alph{enumi}.}
+\setcounter{enumi}{3}
+\tightlist
+\item
+  Is multicollinearity a problem? If so, propose a solution.
+\end{enumerate}
+
+\begin{verbatim}
+-There seem's to be no multicollinearity. We can do a check by using a Variance Inflation Factor test. The test showed that there is no multicollinearity. It say's that the is no correlation between one predictor and the other predictor variables and that the varience was not inflated. 
+\end{verbatim}
+
+\begin{enumerate}
+\def\labelenumi{\alph{enumi}.}
+\setcounter{enumi}{4}
+\tightlist
+\item
+  Construct a regression model that includes the information for the
+  time of day.
+\end{enumerate}
+
+\begin{verbatim}
+- Time = -41.4221 + .644 * boxes + .3494 * weight + 4.54 * codes
+\end{verbatim}
+
+\begin{enumerate}
+\def\labelenumi{\alph{enumi}.}
+\setcounter{enumi}{5}
+\tightlist
+\item
+  Does the time of day affect the unloading time? Explain.
+\end{enumerate}
+
+\begin{verbatim}
+- Yes, the time of day seems to affect the loading time. It's there is a linear relationship between the independet variable time of day (which is encoded 1, 2 or 3). It appears that in the morning and late afternoon it takes less time. 
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{cata_model =}\StringTok{ }\KeywordTok{lm}\NormalTok{(cata}\OperatorTok{$}\NormalTok{Time }\OperatorTok{~}\StringTok{ }\NormalTok{cata}\OperatorTok{$}\NormalTok{Boxes }\OperatorTok{+}\StringTok{ }\NormalTok{cata}\OperatorTok{$}\NormalTok{Weight, }\DataTypeTok{data =}\NormalTok{ cata)}
+\KeywordTok{summary}\NormalTok{(cata_model)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = cata$Time ~ cata$Boxes + cata$Weight, data = cata)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -16.0809  -3.9519   0.5004   3.6927  17.1160 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(>|t|)    
+## (Intercept) -28.42712    6.88696  -4.128 0.000149 ***
+## cata$Boxes    0.60411    0.05568  10.850 2.16e-14 ***
+## cata$Weight   0.37430    0.08467   4.420 5.78e-05 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 7.069 on 47 degrees of freedom
+## Multiple R-squared:  0.8072, Adjusted R-squared:  0.799 
+## F-statistic: 98.37 on 2 and 47 DF,  p-value: < 2.2e-16
+\end{verbatim}
+
+\begin{verbatim}
+## [1] "variance inflation factor"
+\end{verbatim}
+
+\begin{verbatim}
+##  cata$Boxes cata$Weight 
+##    1.146707    1.146707
+\end{verbatim}
+
+\begin{verbatim}
+## [1] "Average time it takes to unload in the morning"
+\end{verbatim}
+
+\begin{verbatim}
+## [1] 55.77778
+\end{verbatim}
+
+\begin{verbatim}
+## [1] "Average time it takes to unload in the early after"
+\end{verbatim}
+
+\begin{verbatim}
+## [1] 68.66667
+\end{verbatim}
+
+\begin{verbatim}
+## [1] "Average time it takes to unload in the late after"
+\end{verbatim}
+
+\begin{verbatim}
+## [1] 55.90909
+\end{verbatim}
+
+\end{document}
